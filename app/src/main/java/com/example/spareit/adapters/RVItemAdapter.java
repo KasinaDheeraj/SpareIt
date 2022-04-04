@@ -17,6 +17,7 @@ import androidx.annotation.UiThread;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.spareit.ItemSelectActivity;
 import com.example.spareit.R;
 import com.example.spareit.data.AppDatabase;
 import com.example.spareit.data.Items;
@@ -29,9 +30,11 @@ public class RVItemAdapter extends RecyclerView.Adapter<RVItemAdapter.ViewHolder
     Context context;
     Boolean forClick;//true for item, false for status
     Listener listener;
+    AppDatabase db;
 
     public RVItemAdapter(Context context,Boolean forClick) {
-        items = AppDatabase.getDbInstance(context.getApplicationContext()).userDao().getItems();
+        db=AppDatabase.getDbInstance(context.getApplicationContext());
+        items = db.userDao().getItems();
         this.context = context;
         this.forClick=forClick;
     }
@@ -58,7 +61,8 @@ public class RVItemAdapter extends RecyclerView.Adapter<RVItemAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 if(forClick){
-
+                    if(listener!=null)
+                        listener.onClick(position);
                 }else{
                     //Make a Phonecall for ordering items
                     if(listener!=null)
@@ -87,10 +91,9 @@ public class RVItemAdapter extends RecyclerView.Adapter<RVItemAdapter.ViewHolder
         notifyItemRemoved(position);
     }
 
-
     public void onlyThreshold() {
         items = AppDatabase.getDbInstance(context.getApplicationContext()).userDao().getItems();
-        items.removeIf(s -> {Log.d("--------------",""+s.count+"~"+s.threshold);return s.count > s.threshold;});
+        items.removeIf(s -> s.count > s.threshold);
         notifyDataSetChanged();
     }
 

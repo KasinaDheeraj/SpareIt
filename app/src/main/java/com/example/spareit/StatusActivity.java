@@ -23,7 +23,9 @@ public class StatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
-        getSupportActionBar().setTitle("Items");
+        getSupportActionBar().setTitle("Status");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
 
         // Set local attributes to corresponding views
@@ -44,7 +46,12 @@ public class StatusActivity extends AppCompatActivity {
                             0110);
 
                 } else {
-                    Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + adapter.items.get(position).phoneNo));
+                    Intent intent=new Intent(StatusActivity.this,VendorProfileActivity.class);
+                    Bundle extras = new Bundle();
+                    extras.putString("NAME",adapter.items.get(position).vendorName);
+                    extras.putString("PHONE",adapter.items.get(position).phoneNo);
+                    extras.putString("ADDRESS",adapter.items.get(position).address);
+                    intent.putExtras(extras);
                     startActivity(intent);
                 }
             }

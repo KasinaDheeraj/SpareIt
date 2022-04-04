@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverter;
 import androidx.room.TypeConverters;
 
-@Database(entities={Items.class},version = 2,exportSchema = false)
+@Database(entities={Items.class},version = 1,exportSchema = false)
 @TypeConverters(Convertors.class)
 public abstract class AppDatabase extends RoomDatabase {
 

@@ -14,8 +14,13 @@ import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.spareit.adapters.RVItemAdapter;
 import com.example.spareit.data.AppDatabase;
@@ -34,6 +39,9 @@ public class ItemActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Items");
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         // Set local attributes to corresponding views
         recyclerView = (RecyclerView) this.findViewById(R.id.recycler_view_item_activity);
@@ -43,6 +51,48 @@ public class ItemActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         adapter=new RVItemAdapter(this,true);
+//        adapter.setListener(new RVItemAdapter.Listener() {
+//            @Override
+//            public void onClick(int position) {
+//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ItemActivity.this);
+//                LayoutInflater inflater = ItemActivity.this.getLayoutInflater();
+//                final View dialogView = inflater.inflate(R.layout.dialog_admin, null);
+//                dialogBuilder.setView(dialogView);
+//
+//                final EditText countET = dialogView.findViewById(R.id.passAdmin);
+//                countET.setHint("Stock Quantity");
+//                countET.setInputType(InputType.TYPE_CLASS_NUMBER);
+//
+//                dialogBuilder.setTitle("Enter Stock quantity to be added");
+//                dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener()
+//                {
+//                    public void onClick(DialogInterface dialog, int whichButton)
+//                    {
+//                        if(!countET.getText().toString().trim().equalsIgnoreCase("")){
+//                            int count= Integer.parseInt(countET.getText().toString().trim());
+//                            AppDatabase db=AppDatabase.getDbInstance(ItemActivity.this);
+//                            db.userDao().deleteItem(adapter.items.get(position).uid);
+//                            adapter.items.get(position).count+=count;
+//                            db.userDao().insertItems(adapter.items.get(position));
+//                            adapter.notifyDataSetChanged();
+//                        }else{
+//                            Toast.makeText(ItemActivity.this,"Enter quantity",Toast.LENGTH_LONG).show();
+//                        }
+//
+//                    }
+//                });
+//                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+//                {
+//                    public void onClick(DialogInterface dialog, int whichButton)
+//                    {
+//
+//                    }
+//                });
+//                AlertDialog ad = dialogBuilder.create();
+//                ad.setCancelable(false);
+//                ad.show();
+//            }
+//        });
         recyclerView.setAdapter(adapter);
         setUpRecyclerView();
     }
@@ -100,8 +150,11 @@ public class ItemActivity extends AppCompatActivity {
                                     extras.putString("uid",String.valueOf(s.uid));
                                     extras.putString("Name",s.name);
                                     extras.putInt("count",s.count);
+                                    extras.putInt("purchasePrice",s.purchasePrice);
+                                    extras.putInt("salePrice",s.salePrice);
                                     extras.putString("vendorName",s.vendorName);
                                     extras.putString("phoneNo",s.phoneNo);
+                                    extras.putString("address",s.address);
                                     intent.putExtras(extras);
                                     startActivity(intent);
                                 }

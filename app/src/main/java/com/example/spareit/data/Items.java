@@ -22,6 +22,14 @@ public class Items {
     @ColumnInfo(name="count")
     public int count;
 
+    //Purchasing price of item
+    @ColumnInfo(name="purchasePrice")
+    public int purchasePrice;
+
+    //Selling price of item
+    @ColumnInfo(name="salePrice")
+    public int salePrice;
+
     //Name of Vendor
     @ColumnInfo(name="vendorName")
     public String vendorName;
@@ -29,6 +37,10 @@ public class Items {
     //PhoneNumber of Vendor
     @ColumnInfo(name="phoneNo")
     public String phoneNo;
+
+    //Address of Vendor
+    @ColumnInfo(name="address")
+    public String address;
 
     //Threshold count for the item
     @ColumnInfo(name="threshold",defaultValue = "10")

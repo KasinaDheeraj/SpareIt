@@ -19,7 +19,7 @@
         app:hintTextColor="@color/splash_black"
         android:textColorHint="@color/splash_black"
         app:boxStrokeColor="@color/splash_black"
-        android:hint="NAME">
+        android:hint="Name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/nameET"
@@ -41,7 +41,7 @@
         app:hintTextColor="@color/splash_black"
         android:textColorHint="@color/splash_black"
         app:boxStrokeColor="@color/splash_black"
-        android:hint="COUNT">
+        android:hint="Count">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/countET"
@@ -59,12 +59,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/countTIL"
+        android:layout_below="@+id/saleTIL"
         app:hintAnimationEnabled="true"
         app:hintTextColor="@color/splash_black"
         android:textColorHint="@color/splash_black"
         app:boxStrokeColor="@color/splash_black"
-        android:hint="VENDOR NAME">
+        android:hint="Vendor Name">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/VnameET"
@@ -86,7 +86,7 @@
         app:hintTextColor="@color/splash_black"
         android:textColorHint="@color/splash_black"
         app:boxStrokeColor="@color/splash_black"
-        android:hint="VENDOR PHONE NUMBER">
+        android:hint="Vendor Phone Number">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/VnumET"
@@ -97,5 +97,72 @@
             android:textColor="@color/splash_black"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amountTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/countTIL"
+        app:hintAnimationEnabled="true"
+        app:hintTextColor="@color/splash_black"
+        android:textColorHint="@color/splash_black"
+        app:boxStrokeColor="@color/splash_black"
+        android:hint="Purchase Price">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/amountET"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/splash_black"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/saleTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/amountTIL"
+        app:hintAnimationEnabled="true"
+        app:hintTextColor="@color/splash_black"
+        android:textColorHint="@color/splash_black"
+        app:boxStrokeColor="@color/splash_black"
+        android:hint="Sale Price">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/saleET"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/splash_black"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/addressTIL"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/vendorNumTIL"
+        app:hintAnimationEnabled="true"
+        app:hintTextColor="@color/splash_black"
+        android:textColorHint="@color/splash_black"
+        app:boxStrokeColor="@color/splash_black"
+        android:hint="Vendor Address">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/addressET"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/splash_black"/>
+    </com.google.android.material.textfield.TextInputLayout>
 
 </RelativeLayout>

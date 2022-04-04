@@ -13,7 +13,7 @@ public interface UserDao {
     List<Items> getItems();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insetItems(Items... items);
+    void insertItems(Items... items);
 
     @Query("DELETE FROM Items WHERE uid=:id")
     void deleteItem(int id);

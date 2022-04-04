@@ -12,16 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpareIt">
         <activity
-            android:name=".AddItemActivity"
+            android:name=".RevenueGraphActivity"
             android:exported="false" />
         <activity
-            android:name=".StatusActivity"
+            android:name=".AddStockActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".OrderPlacedActivity"
+            android:exported="false"
+            android:parentActivityName=".ItemSelectActivity" />
+        <activity
+            android:name=".ItemSelectActivity"
             android:exported="false" />
         <activity
-            android:name=".ItemActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
+            android:name=".StartActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,6 +34,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".VendorProfileActivity"
+            android:exported="false"
+            android:parentActivityName=".StatusActivity" />
+        <activity
+            android:name=".AddItemActivity"
+            android:exported="false"
+            android:parentActivityName=".ItemActivity" />
+        <activity
+            android:name=".StatusActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".ItemActivity"
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
