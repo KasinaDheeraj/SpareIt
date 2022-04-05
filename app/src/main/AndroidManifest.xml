@@ -12,8 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SpareIt">
         <activity
-            android:name=".RevenueGraphActivity"
+            android:name=".DayGraphActivity"
             android:exported="false" />
+        <activity
+            android:name=".RevenueGraphActivity"
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".AddStockActivity"
             android:exported="false"

@@ -31,6 +31,7 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
+        getSupportActionBar().setTitle("New Item");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
@@ -87,7 +88,8 @@ public class AddItemActivity extends AppCompatActivity {
             items.phoneNo=vendorPhNo;
             items.address=address;
             items.threshold=10;
-            items.salesInfo=new ArrayList<Pair<String,Integer>>();
+            items.salesInfo= new ArrayList<>();
+            items.revenueInfo=new ArrayList<>();
             if(uid!=null)items.uid=Integer.parseInt(uid);
             AppDatabase.getDbInstance(this).userDao().insertItems(items);
             finish();

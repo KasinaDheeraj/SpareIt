@@ -93,7 +93,7 @@ public class RVItemAdapter extends RecyclerView.Adapter<RVItemAdapter.ViewHolder
 
     public void onlyThreshold() {
         items = AppDatabase.getDbInstance(context.getApplicationContext()).userDao().getItems();
-        items.removeIf(s -> s.count > s.threshold);
+        items.removeIf(s -> s.count >= s.threshold);
         notifyDataSetChanged();
     }
 

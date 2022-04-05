@@ -51,48 +51,6 @@ public class ItemActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
 
         adapter=new RVItemAdapter(this,true);
-//        adapter.setListener(new RVItemAdapter.Listener() {
-//            @Override
-//            public void onClick(int position) {
-//                AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(ItemActivity.this);
-//                LayoutInflater inflater = ItemActivity.this.getLayoutInflater();
-//                final View dialogView = inflater.inflate(R.layout.dialog_admin, null);
-//                dialogBuilder.setView(dialogView);
-//
-//                final EditText countET = dialogView.findViewById(R.id.passAdmin);
-//                countET.setHint("Stock Quantity");
-//                countET.setInputType(InputType.TYPE_CLASS_NUMBER);
-//
-//                dialogBuilder.setTitle("Enter Stock quantity to be added");
-//                dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener()
-//                {
-//                    public void onClick(DialogInterface dialog, int whichButton)
-//                    {
-//                        if(!countET.getText().toString().trim().equalsIgnoreCase("")){
-//                            int count= Integer.parseInt(countET.getText().toString().trim());
-//                            AppDatabase db=AppDatabase.getDbInstance(ItemActivity.this);
-//                            db.userDao().deleteItem(adapter.items.get(position).uid);
-//                            adapter.items.get(position).count+=count;
-//                            db.userDao().insertItems(adapter.items.get(position));
-//                            adapter.notifyDataSetChanged();
-//                        }else{
-//                            Toast.makeText(ItemActivity.this,"Enter quantity",Toast.LENGTH_LONG).show();
-//                        }
-//
-//                    }
-//                });
-//                dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener()
-//                {
-//                    public void onClick(DialogInterface dialog, int whichButton)
-//                    {
-//
-//                    }
-//                });
-//                AlertDialog ad = dialogBuilder.create();
-//                ad.setCancelable(false);
-//                ad.show();
-//            }
-//        });
         recyclerView.setAdapter(adapter);
         setUpRecyclerView();
     }

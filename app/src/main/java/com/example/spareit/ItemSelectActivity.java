@@ -37,16 +37,13 @@ import java.util.stream.Collectors;
 public class ItemSelectActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     RVItemSelectAdapter adapter;
-    SimpleDateFormat sdf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_select);
 
         getSupportActionBar().setTitle("Select Items");
-
-        String pattern="MM-dd-YYYY";
-        sdf=new SimpleDateFormat(pattern);
 
         TextView total=findViewById(R.id.total);
 
@@ -87,8 +84,10 @@ public class ItemSelectActivity extends AppCompatActivity {
                                 adapter.items.get(i).count-=adapter.counts.get(i);
 
                                 //Formatting date to store in database
-                                String date=sdf.format(new Date());
+                                Calendar calendar=Calendar.getInstance();
+                                String date=String.valueOf(calendar.getTimeInMillis());//sdf.format(calendar.getTime());
                                 adapter.items.get(i).salesInfo.add(new Pair<>(date,adapter.counts.get(i)));
+                                adapter.items.get(i).revenueInfo.add(new Pair<>(date,adapter.counts.get(i)*(adapter.items.get(i).salePrice-adapter.items.get(i).purchasePrice)));
                                 updateThreshold(i);
                                 db.userDao().insertItems(adapter.items.get(i));
 
@@ -119,15 +118,9 @@ public class ItemSelectActivity extends AppCompatActivity {
         //Get Map as list of sales in each week.
         Map<String,List<Pair<String,Integer>>> map=adapter.items.get(i).salesInfo.stream()
                 .collect(Collectors.groupingBy(s->{
-                    try {
-                        Date date=sdf.parse(s.first);
-                        Calendar cal=Calendar.getInstance();
-                        cal.setTime(date);
-                        return (cal.get(Calendar.YEAR)+1)+"~"+cal.get(Calendar.WEEK_OF_YEAR);
-                    } catch (ParseException e) {
-                        e.printStackTrace();
-                    }
-                    return "";
+                    Calendar cal=Calendar.getInstance();
+                    cal.setTimeInMillis((long)Double.parseDouble(s.first));
+                    return (cal.get(Calendar.YEAR))+"~"+cal.get(Calendar.WEEK_OF_YEAR);
                 }));
 
         //Map of each week and count sold
@@ -145,8 +138,6 @@ public class ItemSelectActivity extends AppCompatActivity {
                 .mapToDouble(x -> x.getValue())
                 .average()
                 .orElse(10); ;
-
-        //Log.e("Update Threshold",""+adapter.items.get(i).threshold);
 
     }
 }

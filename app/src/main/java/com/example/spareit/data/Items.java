@@ -50,4 +50,8 @@ public class Items {
     @ColumnInfo(name="salesInfo")
     public List<Pair<String, Integer>> salesInfo;
 
+    //Sales information as pair of date and item count sold.
+    @ColumnInfo(name="revenue")
+    public List<Pair<String, Integer>> revenueInfo;
+
 }
