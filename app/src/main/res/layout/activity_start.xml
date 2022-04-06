@@ -11,7 +11,7 @@
         android:layout_width="320dp"
         android:layout_height="320dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_spareit" />
+        android:src="@drawable/icon_spareit" />
 
     <Button
         android:id="@+id/adminLogin"

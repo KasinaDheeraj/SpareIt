@@ -29,7 +29,9 @@ public class StartActivity extends AppCompatActivity {
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
-        seUpWindows();
+        getSupportActionBar().hide();
+
+        setUpWindows();
 
         Button adminLogin=findViewById(R.id.adminLogin);
         Button employeeLogin=findViewById(R.id.empLogin);
@@ -124,7 +126,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void gotoMain(){
-        Intent intent=new Intent(StartActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);;
+        Intent intent=new Intent(StartActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 
@@ -133,7 +135,7 @@ public class StartActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void seUpWindows(){
+    public void setUpWindows(){
         Window window = this.getWindow();
 
         getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.white));
@@ -146,6 +148,6 @@ public class StartActivity extends AppCompatActivity {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
 
         // finally change the color
-        window.setStatusBarColor(ContextCompat.getColor(this,R.color.black));
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.white));
     }
 }

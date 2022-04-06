@@ -8,8 +8,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.spareit.adapters.RVItemAdapter;
 
@@ -23,10 +29,9 @@ public class StatusActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
-        getSupportActionBar().setTitle("Status");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+        setUpWindows();
 
         // Set local attributes to corresponding views
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_status_activity);
@@ -57,5 +62,25 @@ public class StatusActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void setUpWindows(){
+        Window window = this.getWindow();
+
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.white));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#000000\">" + "Status" + "</font>",0));
+
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        // finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.white));
+
+        final Drawable upArrow = this.getDrawable(R.drawable.abc_ic_ab_back_material);
+        upArrow.setColorFilter(Color.parseColor("#000000"), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);
     }
 }

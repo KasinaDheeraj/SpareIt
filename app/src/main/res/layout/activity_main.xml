@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:layout_margin="4dp"
-            android:text="@string/add_stock"
+            android:text="@string/refill_stock"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
