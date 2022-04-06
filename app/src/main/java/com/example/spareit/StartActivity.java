@@ -1,14 +1,19 @@
 package com.example.spareit;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -21,6 +26,10 @@ public class StartActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        seUpWindows();
 
         Button adminLogin=findViewById(R.id.adminLogin);
         Button employeeLogin=findViewById(R.id.empLogin);
@@ -117,18 +126,26 @@ public class StartActivity extends AppCompatActivity {
     public void gotoMain(){
         Intent intent=new Intent(StartActivity.this,MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);;
         startActivity(intent);
-        finish();
     }
 
     public void gotoEmp(){
         Intent intent=new Intent(StartActivity.this,ItemSelectActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);;
         startActivity(intent);
-        finish();
     }
 
-    public void go(View v){
-        gotoEmp();
-//        Intent intent=new Intent(StartActivity.this,MainActivity.class);
-//        startActivity(intent);
+    public void seUpWindows(){
+        Window window = this.getWindow();
+
+        getSupportActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.white));
+        getSupportActionBar().setTitle(Html.fromHtml("<font color=\"#000000\">" + getString(R.string.app_name) + "</font>",0));
+
+        // clear FLAG_TRANSLUCENT_STATUS flag:
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+
+        // add FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS flag to the window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+
+        // finally change the color
+        window.setStatusBarColor(ContextCompat.getColor(this,R.color.black));
     }
 }

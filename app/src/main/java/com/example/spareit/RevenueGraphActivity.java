@@ -2,6 +2,7 @@ package com.example.spareit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.example.spareit.data.Items;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -37,12 +39,10 @@ import java.util.stream.Collectors;
 public class RevenueGraphActivity extends AppCompatActivity {
 
     private BarChart chart;
-    SharedPreferences pref;
     List<BarEntry> entries;
     ArrayList<String> xAxis;
     List<Items> items;
     AppDatabase db;
-    Calendar cal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +59,11 @@ public class RevenueGraphActivity extends AppCompatActivity {
         chart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
             @Override
             public void onValueSelected(Entry e, Highlight h) {
-                Toast.makeText(RevenueGraphActivity.this,""+xAxis.get((int)e.getX())+":"+e.getY(),Toast.LENGTH_LONG).show();
-
+                Intent intent=new Intent(RevenueGraphActivity.this,DayGraphActivity.class);
+                Bundle extras=new Bundle();
+                extras.putInt("MONTH",(int)e.getX());
+                intent.putExtras(extras);
+                startActivity(intent);
             }
 
             @Override
@@ -72,16 +75,19 @@ public class RevenueGraphActivity extends AppCompatActivity {
         chart.setDrawValueAboveBar(true);
         chart.getDescription().setEnabled(false);
         chart.setMaxVisibleValueCount(60);
+        chart.setScaleX(1f);
 
-        // scaling can now only be done on x- and y-axis separately
-        chart.setPinchZoom(false);
+        chart.setPinchZoom(true);
+        chart.enableScroll();
+
 
         chart.setDrawGridBackground(false);
 
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setGranularity(1f); // minimum axis-step (interval) is 1
-        xAxis.setValueFormatter(getXAxisValues());
+        chart.setTouchEnabled(true);
 
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setGranularity(2f); // minimum axis-step (interval) is 1
+        xAxis.setValueFormatter(getXAxisValues());
         //Setting Values
         setUpBarData();
 
@@ -98,6 +104,7 @@ public class RevenueGraphActivity extends AppCompatActivity {
         data.setBarWidth(0.9f); // set custom bar width
         chart.setData(data);
         chart.animateXY(2000, 2000);
+        chart.fitScreen();
         chart.setFitBars(true); // make the x-axis fit exactly all bars
         chart.invalidate(); // refresh
     }
@@ -111,28 +118,7 @@ public class RevenueGraphActivity extends AppCompatActivity {
             intermediate.addAll(items.get(b).revenueInfo);
         }
 
-//        Map<String, List<Pair<String, Integer>>> map =items.get(0).revenueInfo.stream()
-//                .collect(Collectors.groupingBy(s -> {
-//                    Calendar cal = Calendar.getInstance();
-//                    cal.setTimeInMillis((long)Double.parseDouble(s.first));
-//                    return "~" + cal.get(Calendar.MONTH);
-//                }));
-//        Log.e("EACH MAP",items.get(0).revenueInfo.toString());
-//        Log.e("STREAM MAP",map.toString());
-//        //Get Map as list of sales in each week.
-//        for(int j=1;j<items.size();j++) {
-//            Map<String, List<Pair<String, Integer>>> map1 = items.get(j).revenueInfo.stream()
-//                    .collect(Collectors.groupingBy(s -> {
-//                        Calendar cal = Calendar.getInstance();
-//                        cal.setTimeInMillis((long)Double.parseDouble(s.first));
-//                        return "~" + cal.get(Calendar.MONTH);
-//                    }));
-//            Log.e("EACH MAP",items.get(j).revenueInfo.toString());
-//            Log.e("STREAM MAP",map1.toString());
-//            map.putAll(map1);
-//        }
-//        Log.e("FINAL MAP",map.toString());
-        //Map of each week and count sold\
+        //Map of each day and get revenue
         Log.e("INTERMEDIATE LIST",intermediate.toString());
         Map<String, List<Pair<String, Integer>>> map =intermediate.stream()
                 .collect(Collectors.groupingBy(s -> {
@@ -159,7 +145,6 @@ public class RevenueGraphActivity extends AppCompatActivity {
         for(;i<12;i++){
             entries.add(new BarEntry(i++,0));
         }
-        //entries.add(new BarEntry(0f, 30f));
     }
 
     private ValueFormatter getXAxisValues() {
@@ -184,7 +169,6 @@ public class RevenueGraphActivity extends AppCompatActivity {
                 return xAxis.get((int) value);
             }
         };
-
 
         return formatter;
     }
