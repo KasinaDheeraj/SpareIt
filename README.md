@@ -6,5 +6,5 @@ The shop owner maintains as few inventory for each item as reasonable, to reduce
 computer should print out the part number, the amount required and the address of the vendor supplying the part.
 The app also generates the revenue for each day and at the end of the month, the app generates a graph showing the sales for each day of the month.
 
-For Overview of work flow of app 
-[Work Flow.pdf](https://github.com/KasinaDheeraj/SpareIt/files/9195366/Work.Flow.pdf)
+For Overview of work flow of app
+[See this.](https://github.com/KasinaDheeraj/SpareIt/blob/master/Work%20Flow.pdf)
